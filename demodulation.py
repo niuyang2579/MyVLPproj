@@ -4,7 +4,6 @@ from functools import reduce
 import operator
 from math import cos, sin
 from scipy.optimize import minimize
-import matplotlib.pyplot as plt
 
 
 def slope(point1, point2):
@@ -29,8 +28,6 @@ def linear_regression(x, y):
 def detect_preamble(ratio, N):
     preambles = []
     extremes = []
-    plt.plot(ratio)
-    plt.show()
     derivatives = filter.first_derivative(ratio, N)
 
     for i, d in enumerate(derivatives[1:]):
@@ -40,7 +37,7 @@ def detect_preamble(ratio, N):
     extremes = np.array(extremes)
     positive_mean = np.mean(ratio[ratio > 0])
     negative_mean = np.mean(ratio[ratio < 0])
-    amplitude = (positive_mean - negative_mean) * 1.5
+    amplitude = (positive_mean - negative_mean) * 0.5
     slopes = []
     for i, extreme in enumerate(extremes[1:]):
         trend = 1 if extreme[1] >= extremes[i][1] else -1
@@ -103,17 +100,61 @@ def extract_packets(ratio, T, N, I):
         y = ratio[x[0]:x[-1] + 1]
         ratio[x[0]:x[-1] + 1] = linear_regression(x, y)
         rss[-1][I] = np.mean(ratio[x[0]:x[-1] + 1])
-        plt.plot(ratio)
-        plt.show()
     return rss
 
 
-def neg2pos(rss):
+def SNR(ratio, T, N, I):
+    preambles = detect_preamble(ratio, N)
+    n_p = preambles[:, 1] - preambles[:, 0]
+    ni = np.mean(n_p) / 3
+    packet_len = T * ni
+    index = np.zeros(len(preambles))
+    for i, preamble in enumerate(preambles[1:]):
+        d = preamble[0] - (preambles[i][1] + ni)
+        if d > packet_len / 2:
+            d %= packet_len
+            if d / ni < 4 or (packet_len - d) / ni < 4:
+                index[i] = index[i + 1] = 1
+    preambles = preambles[index > 0]
+    d = preambles[-1][0] - preambles[0][0]
+    s = int(round(d / (packet_len + 4 * ni)))
+    ni = d / (s * (T + 4))
+    signal = 0
+    noise = 0
+    for i in range(len(preambles) - 1):
+        start = preambles[i][1]
+        for j in range(I + 1):
+            end = start + ni
+            x = np.arange(int(round(start)), int(round(end)))
+            y = ratio[x[0]:x[-1] + 1]
+            signal += np.sum(np.square(y))
+            noise += np.sum(np.square(y - linear_regression(x, y)))
+            start = end
+        x = np.arange(int(round(start)), int(round(preambles[i + 1][0])))
+        y = ratio[x[0]:x[-1] + 1]
+        signal += np.sum(np.square(y))
+        noise += np.sum(np.square(y - linear_regression(x, y)))
+    return 10 * np.log10(signal / noise)
+
+
+def neg2pos(neg):
     pos = []
-    for i in range(len(rss)):
-        rss[i] = rss[i][-1] - rss[i]
-        pos.append(rss[i][:-1])
+    for i in range(len(neg)):
+        neg[i] = neg[i][-1] - neg[i]
+        pos.append(neg[i][:-1])
     return pos
+
+
+def distance(truth, LEDs):
+    return np.sqrt((truth[0] - LEDs[:, 0]) ** 2 + (truth[1] - LEDs[:, 1]) ** 2 + truth[2] ** 2)
+
+
+def cos_phi(truth, LEDs):
+    return truth[2] / distance(truth, LEDs)
+
+
+def cos_psi(truth, LEDs):
+    return ((LEDs[:, 0] - truth[0]) * cos(truth[3]) + (LEDs[:, 1] - truth[1]) * sin(truth[3])) / distance(truth, LEDs)
 
 
 def f(K, *args):
@@ -179,7 +220,7 @@ def gradf(K, *args):
 
 
 def solve(f, K0, *args):
-    bnds = ((0, 5), (0, 5), (0, 3.5), (0, 2 * np.pi), (0, None))
+    bnds = ((0, 11), (0, 7), (0, 3.5), (0, 2 * np.pi), (0, None))
     return minimize(f, K0, args=args, method='SLSQP', jac=gradf, bounds=bnds)
 
 
@@ -203,6 +244,23 @@ def f2(K, *args):
     theta = loc[3]
     G = K[0]
     m = K[1]
+    summation = 0
+    for led, rss in zip(LEDs, RSSs):
+        summation += ((G * (z ** m) * ((led[0] - x) * cos(theta) + (led[1] - y) * sin(theta))) / (
+            ((x - led[0]) ** 2 + (y - led[1]) ** 2 + z ** 2) ** ((m + 3) / 2)) - rss) ** 2
+    return summation
+
+
+def f3(K, *args):
+    LEDs = args[0]
+    RSSs = args[1]
+    loc = args[2]
+    x = loc[0]
+    y = loc[1]
+    z = loc[2]
+    theta = loc[3]
+    G = K[0]
+    m = 1
     summation = 0
     for led, rss in zip(LEDs, RSSs):
         summation += ((G * (z ** m) * ((led[0] - x) * cos(theta) + (led[1] - y) * sin(theta))) / (
@@ -236,8 +294,32 @@ def gradf2(K, *args):
     return np.asarray((gG, gm))
 
 
+def gradf3(K, *args):
+    LEDs = args[0]
+    RSSs = args[1]
+    loc = args[2]
+    x = loc[0]
+    y = loc[1]
+    z = loc[2]
+    theta = loc[3]
+    G = K[0]
+    m = 1
+
+    gG = 0
+    for led, rss in zip(LEDs, RSSs):
+        gG += 2 * ((G * (z ** m) * ((led[0] - x) * cos(theta) + (led[1] - y) * sin(theta))) / (
+            ((x - led[0]) ** 2 + (y - led[1]) ** 2 + z ** 2) ** ((m + 3) / 2)) - rss) * (
+                  z ** m * ((led[0] - x) * cos(theta) + (led[1] - y) * sin(theta))) / (
+                  ((x - led[0]) ** 2 + (y - led[1]) ** 2 + z ** 2) ** ((m + 3) / 2))
+    return np.asarray((gG,))
+
+
 def calibrate_m(f2, K0, *args):
     return minimize(f2, K0, args=args, method='SLSQP', jac=gradf2, bounds=((0, None), (0, 1)))
+
+
+def calibrate_G(f3, K0, *args):
+    return minimize(f3, K0, args=args, method='SLSQP', jac=gradf3, bounds=((0, None),))
 
 
 def main():
