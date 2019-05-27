@@ -9,7 +9,7 @@ from scipy.optimize import minimize
 def slope(point1, point2):
     return (point2[1] - point1[1]) / (point2[0] - point1[0])
 
-
+# 组合数
 def combine(n, k):
     if n == k or k == 0:
         return 1
@@ -18,7 +18,7 @@ def combine(n, k):
     else:
         return reduce(operator.mul, range(n - k + 1, n + 1)) / reduce(operator.mul, range(1, k + 1))
 
-
+# 线性规划
 def linear_regression(x, y):
     A = np.vstack([x, np.ones(len(x))]).T
     m, c = np.linalg.lstsq(A, y, rcond=None)[0]
@@ -148,11 +148,11 @@ def neg2pos(neg):
 def distance(truth, LEDs):
     return np.sqrt((truth[0] - LEDs[:, 0]) ** 2 + (truth[1] - LEDs[:, 1]) ** 2 + truth[2] ** 2)
 
-
+# 入射角
 def cos_phi(truth, LEDs):
     return truth[2] / distance(truth, LEDs)
 
-
+# 发射角？
 def cos_psi(truth, LEDs):
     return ((LEDs[:, 0] - truth[0]) * cos(truth[3]) + (LEDs[:, 1] - truth[1]) * sin(truth[3])) / distance(truth, LEDs)
 

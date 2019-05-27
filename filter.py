@@ -1,7 +1,7 @@
 import numpy as np
 import demodulation
 
-
+# 一次求导
 def first_derivative(ratio, N=7):
     f = []
     tmp = 0
