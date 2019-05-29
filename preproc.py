@@ -1,6 +1,9 @@
 import cv2
 import numpy as np
 import matplotlib.pyplot as plt
+import image_reader as ir
+import demodulation
+import filter
 
 def find_range():
     img_wide = cv2.imread('single/wide/IMG_1240.JPG', 0)
@@ -36,6 +39,7 @@ def find_range():
     dy_t = f / fy_t
 
     m, n = img_tele.shape
+    print(m, n)
     p_t = [np.array([0, 0]), np.array([0, n-1]), np.array([m-1, 0]), np.array([m-1, n-1])]
     p_w = []
     #Ca, Cb是相机坐标系参数 Xc/Zc, Yc/Zc
@@ -71,5 +75,20 @@ def observe():
     plt.plot(np.sum(img_tele_l, 0))
     plt.show()
 
+def LCC():
+    tag = '0529ED40'
+    i = 0
+    img = ir.image(tag, i)
+    img = filter.high_pass_filter(img)
+    # img_long = cv2.imread('./LCC/IMG_4847.JPG', 0)
+    # img_short = cv2.imread('./LCC/IMG_4848.JPG', 0)
+    plt.plot(img)
+    plt.show()
+
+def VLP():
+    tag = ''
+
 if __name__ == '__main__':
-    observe()
+    # find_range()
+    # observe()
+    LCC()

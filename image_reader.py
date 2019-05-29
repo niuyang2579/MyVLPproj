@@ -16,7 +16,8 @@ def sum_column(img, box):
 
 def image(tag, index=-1):
     # url = 'http://wsn.nwpu.info:3000/image/'
-    url = 'http://127.0.0.1:3000/image/'
+    # url = 'http://127.0.0.1:3000/image/'
+    url = 'http://10.69.36.12:3000/image/'
     if index == -1:
         url = url + tag
     else:
