@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import image_reader as ir
 import demodulation
 import filter
+from math import sin, cos
 
 def find_range():
     img_wide = cv2.imread('single/wide/IMG_1240.JPG', 0)
@@ -86,9 +87,27 @@ def LCC():
     plt.show()
 
 def VLP():
-    tag = ''
+    tag = '0513L1'
+    i = 0
+    img = ir.image(tag, i)
+    alpha = img[-1]
+    gamma = img[-2]
+    beta = img[-3]
+    img = img[:len(img)-3]
+    # 旋转矩阵
+    R = np.array([[cos(alpha)*cos(beta), sin(alpha)*cos(beta), -sin(beta)],
+                  [cos(alpha)*sin(beta)*sin(gamma)-sin(alpha)*cos(gamma), sin(alpha)*sin(beta)*sin(gamma)+cos(alpha)*cos(gamma), cos(beta)*sin(gamma)],
+                  [cos(alpha)*sin(beta)*sin(gamma)+sin(alpha)*cos(gamma), sin(alpha)*sin(beta)*sin(gamma)-cos(alpha)*cos(gamma), cos(beta)*cos(gamma)]])
+    I = np.array([3e-3, 3306.61902699479, 3295.67852676445, 2018.79741995009, 1469.65792747970])  # fs fx fy x0 y0
+    indexes, RSSs = demodulation.cal_rss(img)
+    LED = [1.939, 3.638, 0]
+    shape = [4032, 3024]
+    K0 = [1.193, 3.3465, 1.2, 10]  # 最优化初始点
+    P = demodulation.solve(demodulation.f4, K0, LED, RSSs, indexes, I, R, shape)['x']
+    print(P)
 
 if __name__ == '__main__':
     # find_range()
     # observe()
-    LCC()
+    # LCC()
+    VLP()
