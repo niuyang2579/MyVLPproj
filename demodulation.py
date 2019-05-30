@@ -219,7 +219,7 @@ def gradf(K, *args):
     return np.asarray((gx, gy, gz, gtheta, gG))
 
 
-def solve(f, K0, *args):
+def solve(f, gradf, K0, *args):
     # bnds = ((0, 11), (0, 7), (0, 3.5), (0, 2 * np.pi), (0, None))
     bnds = ((0, 11), (0, 7), (0, 3.5), (0, None))
     return minimize(f, K0, args=args, method='SLSQP', jac=gradf, bounds=bnds)
@@ -329,8 +329,8 @@ def f4(K, *args):
     fs, fx, fy, x0, y0 = args[3]
     R = args[4]
     m, n = args[5]
-    dx = f / fx
-    dy = f / fy
+    dx = fs / fx
+    dy = fs / fy
 
     xP = K[0]
     yP = K[1]
@@ -342,11 +342,10 @@ def f4(K, *args):
     #     R[2, 0]*xs + R[2, 1]*ys + R[2, 2]*fs) - (R[1, 0]*x + R[1, 1]*y + R[1, 2]*z))
     summation = 0
     for y, rss in zip(indexes, RSSs):
+        u = 0
         for x in range(m):
-            summation += (G*zL**2*((R[0, 0]*xP + R[0, 1]*yP + R[0, 2]*zP - ((R[2, 0]*xP + R[2, 1]*yP + R[2, 2]*zP)*(fs*R[0, 2] + dx*R[0, 0]*(x - x0) + dy*R[0, 1]*(y - y0)))/(fs*R[2, 2] + dx*R[2, 0]*(x - x0) + dy*R[2, 1]*(y - y0)))*(R[1, 0]*xP + R[1, 1]*yP + R[1, 2]*zP - ((R[2, 0]*xP + R[2, 1]*yP + R[2, 2]*zP)*(fs*R[1, 2] + dx*R[1, 0]*(x - x0) + dy*R[1, 1]*(y - y0)))/(fs*R[2, 2] + dx*R[2, 0]*(x - x0) + dy*R[2, 1]*(y - y0))) - (R[0, 0]*xP + R[0, 1]*yP + R[0, 2]*zP - ((R[2, 0]*xP + R[2, 1]*yP + R[2, 2]*zP)*(fs*R[0, 2] + dx*R[0, 0]*(x - x0) + dy*R[0, 1]*(y - y0)))/(fs*R[2, 2] + dx*R[2, 0]*(x - x0) + dy*R[2, 1]*(y - y0)))*(R[1, 0]*xP + R[1, 1]*yP + R[1, 2]*zP - ((R[2, 0]*xP + R[2, 1]*yP + R[2, 2]*zP)*(fs*R[1, 2] + dx*R[1, 0]*(x - x0 + 1) + dy*R[1, 1]*(y - y0 + 1)))/(fs*R[2, 2] + dx*R[2, 0]*(x - x0 + 1) + dy*R[2, 1]*(y - y0 + 1))) - (R[0, 0]*xP + R[0, 1]*yP + R[0, 2]*zP - ((R[2, 0]*xP + R[2, 1]*yP + R[2, 2]*zP)*(fs*R[0, 2] + dx*R[0, 0]*(x - x0 + 1) + dy*R[0, 1]*(y - y0 + 1)))/(fs*R[2, 2] + dx*R[2, 0]*(x - x0 + 1) + dy*R[2, 1]*(y - y0 + 1)))*(R[1, 0]*xP + R[1, 1]*yP + R[1, 2]*zP - ((R[2, 0]*xP + R[2, 1]*yP + R[2, 2]*zP)*(fs*R[1, 2] + dx*R[1, 0]*(x - x0) + dy*R[1, 1]*(y - y0)))/(fs*R[2, 2] + dx*R[2, 0]*(x - x0) + dy*R[2, 1]*(y - y0))) + (R[0, 0]*xP + R[0, 1]*yP + R[0, 2]*zP - ((R[2, 0]*xP + R[2, 1]*yP + R[2, 2]*zP)*(fs*R[0, 2] + dx*R[0, 0]*(x - x0 + 1) + dy*R[0, 1]*(y - y0 + 1)))/(fs*R[2, 2] + dx*R[2, 0]*(x - x0 + 1) + dy*R[2, 1]*(y - y0 + 1)))*(R[1, 0]*xP + R[1, 1]*yP + R[1, 2]*zP - ((R[2, 0]*xP + R[2, 1]*yP + R[2, 2]*zP)*(fs*R[1, 2] + dx*R[1, 0]*(x - x0 + 1) + dy*R[1, 1]*(y - y0 + 1)))/(fs*R[2, 2] + dx*R[2, 0]*(x - x0 + 1) + dy*R[2, 1]*(y - y0 + 1)))))/(zL**2 + (xL + R[0, 0]*xP + R[0, 1]*yP + R[0, 2]*zP - ((R[2, 0]*xP + R[2, 1]*yP + R[2, 2]*zP)*(fs*R[0, 2] + dx*R[0, 0]*(x - x0) + dy*R[0, 1]*(y - y0)))/(fs*R[2, 2] + dx*R[2, 0]*(x - x0) + dy*R[2, 1]*(y - y0)))**2 + (yL + R[1, 0]*xP + R[1, 1]*yP + R[1, 2]*zP - ((R[2, 0]*xP + R[2, 1]*yP + R[2, 2]*zP)*(fs*R[1, 2] + dx*R[1, 0]*(x - x0) + dy*R[1, 1]*(y - y0)))/(fs*R[2, 2] + dx*R[2, 0]*(x - x0) + dy*R[2, 1]*(y - y0)))**2) - rss
-    # for led, rss in zip(LEDs, RSSs):
-    #     summation += ((G * (z ** m) * ((led[0] - x) * cos(theta) + (led[1] - y) * sin(theta))) / (
-    #         ((x - led[0]) ** 2 + (y - led[1]) ** 2 + z ** 2) ** ((m + 3) / 2)) - rss) ** 2
+            u += (G*zL**2*((R[0, 0]*xP + R[0, 1]*yP + R[0, 2]*zP - ((R[2, 0]*xP + R[2, 1]*yP + R[2, 2]*zP)*(fs*R[0, 2] + dx*R[0, 0]*(x - x0) + dy*R[0, 1]*(y - y0)))/(fs*R[2, 2] + dx*R[2, 0]*(x - x0) + dy*R[2, 1]*(y - y0)))*(R[1, 0]*xP + R[1, 1]*yP + R[1, 2]*zP - ((R[2, 0]*xP + R[2, 1]*yP + R[2, 2]*zP)*(fs*R[1, 2] + dx*R[1, 0]*(x - x0) + dy*R[1, 1]*(y - y0)))/(fs*R[2, 2] + dx*R[2, 0]*(x - x0) + dy*R[2, 1]*(y - y0))) - (R[0, 0]*xP + R[0, 1]*yP + R[0, 2]*zP - ((R[2, 0]*xP + R[2, 1]*yP + R[2, 2]*zP)*(fs*R[0, 2] + dx*R[0, 0]*(x - x0) + dy*R[0, 1]*(y - y0)))/(fs*R[2, 2] + dx*R[2, 0]*(x - x0) + dy*R[2, 1]*(y - y0)))*(R[1, 0]*xP + R[1, 1]*yP + R[1, 2]*zP - ((R[2, 0]*xP + R[2, 1]*yP + R[2, 2]*zP)*(fs*R[1, 2] + dx*R[1, 0]*(x - x0 + 1) + dy*R[1, 1]*(y - y0 + 1)))/(fs*R[2, 2] + dx*R[2, 0]*(x - x0 + 1) + dy*R[2, 1]*(y - y0 + 1))) - (R[0, 0]*xP + R[0, 1]*yP + R[0, 2]*zP - ((R[2, 0]*xP + R[2, 1]*yP + R[2, 2]*zP)*(fs*R[0, 2] + dx*R[0, 0]*(x - x0 + 1) + dy*R[0, 1]*(y - y0 + 1)))/(fs*R[2, 2] + dx*R[2, 0]*(x - x0 + 1) + dy*R[2, 1]*(y - y0 + 1)))*(R[1, 0]*xP + R[1, 1]*yP + R[1, 2]*zP - ((R[2, 0]*xP + R[2, 1]*yP + R[2, 2]*zP)*(fs*R[1, 2] + dx*R[1, 0]*(x - x0) + dy*R[1, 1]*(y - y0)))/(fs*R[2, 2] + dx*R[2, 0]*(x - x0) + dy*R[2, 1]*(y - y0))) + (R[0, 0]*xP + R[0, 1]*yP + R[0, 2]*zP - ((R[2, 0]*xP + R[2, 1]*yP + R[2, 2]*zP)*(fs*R[0, 2] + dx*R[0, 0]*(x - x0 + 1) + dy*R[0, 1]*(y - y0 + 1)))/(fs*R[2, 2] + dx*R[2, 0]*(x - x0 + 1) + dy*R[2, 1]*(y - y0 + 1)))*(R[1, 0]*xP + R[1, 1]*yP + R[1, 2]*zP - ((R[2, 0]*xP + R[2, 1]*yP + R[2, 2]*zP)*(fs*R[1, 2] + dx*R[1, 0]*(x - x0 + 1) + dy*R[1, 1]*(y - y0 + 1)))/(fs*R[2, 2] + dx*R[2, 0]*(x - x0 + 1) + dy*R[2, 1]*(y - y0 + 1)))))/(zL**2 + (xL + R[0, 0]*xP + R[0, 1]*yP + R[0, 2]*zP - ((R[2, 0]*xP + R[2, 1]*yP + R[2, 2]*zP)*(fs*R[0, 2] + dx*R[0, 0]*(x - x0) + dy*R[0, 1]*(y - y0)))/(fs*R[2, 2] + dx*R[2, 0]*(x - x0) + dy*R[2, 1]*(y - y0)))**2 + (yL + R[1, 0]*xP + R[1, 1]*yP + R[1, 2]*zP - ((R[2, 0]*xP + R[2, 1]*yP + R[2, 2]*zP)*(fs*R[1, 2] + dx*R[1, 0]*(x - x0) + dy*R[1, 1]*(y - y0)))/(fs*R[2, 2] + dx*R[2, 0]*(x - x0) + dy*R[2, 1]*(y - y0)))**2) - rss
+        summation += u ** 2
     return summation
 
 def gradf4(K, *args):
@@ -363,17 +362,26 @@ def gradf4(K, *args):
     fs, fx, fy, x0, y0 = args[3]
     R = args[4]
     m, n = args[5]
-    dx = f / fx
-    dy = f / fy
+    dx = fs / fx
+    dy = fs / fy
 
     xP = K[0]
     yP = K[1]
     zP = K[2]
     G = K[3]
-    gxP, gyP, gzP, gG = 0
+    gxP = 0
+    gyP = 0
+    gzP = 0
+    gG = 0
+    counter = 0
     for y, rss in zip(indexes, RSSs):
+        print(counter)
+        counter = counter + 1
         u = 0
-        guxP, guyP, guzP, guG = 0
+        guxP = 0
+        guyP = 0
+        guzP = 0
+        guG = 0
         for x in range(m):
             u += (G*zL**2*((R[0, 0]*xP + R[0, 1]*yP + R[0, 2]*zP - ((R[2, 0]*xP + R[2, 1]*yP + R[2, 2]*zP)*(fs*R[0, 2] + dx*R[0, 0]*(x - x0) + dy*R[0, 1]*(y - y0)))/(fs*R[2, 2] + dx*R[2, 0]*(x - x0) + dy*R[2, 1]*(y - y0)))*(R[1, 0]*xP + R[1, 1]*yP + R[1, 2]*zP - ((R[2, 0]*xP + R[2, 1]*yP + R[2, 2]*zP)*(fs*R[1, 2] + dx*R[1, 0]*(x - x0) + dy*R[1, 1]*(y - y0)))/(fs*R[2, 2] + dx*R[2, 0]*(x - x0) + dy*R[2, 1]*(y - y0))) - (R[0, 0]*xP + R[0, 1]*yP + R[0, 2]*zP - ((R[2, 0]*xP + R[2, 1]*yP + R[2, 2]*zP)*(fs*R[0, 2] + dx*R[0, 0]*(x - x0) + dy*R[0, 1]*(y - y0)))/(fs*R[2, 2] + dx*R[2, 0]*(x - x0) + dy*R[2, 1]*(y - y0)))*(R[1, 0]*xP + R[1, 1]*yP + R[1, 2]*zP - ((R[2, 0]*xP + R[2, 1]*yP + R[2, 2]*zP)*(fs*R[1, 2] + dx*R[1, 0]*(x - x0 + 1) + dy*R[1, 1]*(y - y0 + 1)))/(fs*R[2, 2] + dx*R[2, 0]*(x - x0 + 1) + dy*R[2, 1]*(y - y0 + 1))) - (R[0, 0]*xP + R[0, 1]*yP + R[0, 2]*zP - ((R[2, 0]*xP + R[2, 1]*yP + R[2, 2]*zP)*(fs*R[0, 2] + dx*R[0, 0]*(x - x0 + 1) + dy*R[0, 1]*(y - y0 + 1)))/(fs*R[2, 2] + dx*R[2, 0]*(x - x0 + 1) + dy*R[2, 1]*(y - y0 + 1)))*(R[1, 0]*xP + R[1, 1]*yP + R[1, 2]*zP - ((R[2, 0]*xP + R[2, 1]*yP + R[2, 2]*zP)*(fs*R[1, 2] + dx*R[1, 0]*(x - x0) + dy*R[1, 1]*(y - y0)))/(fs*R[2, 2] + dx*R[2, 0]*(x - x0) + dy*R[2, 1]*(y - y0))) + (R[0, 0]*xP + R[0, 1]*yP + R[0, 2]*zP - ((R[2, 0]*xP + R[2, 1]*yP + R[2, 2]*zP)*(fs*R[0, 2] + dx*R[0, 0]*(x - x0 + 1) + dy*R[0, 1]*(y - y0 + 1)))/(fs*R[2, 2] + dx*R[2, 0]*(x - x0 + 1) + dy*R[2, 1]*(y - y0 + 1)))*(R[1, 0]*xP + R[1, 1]*yP + R[1, 2]*zP - ((R[2, 0]*xP + R[2, 1]*yP + R[2, 2]*zP)*(fs*R[1, 2] + dx*R[1, 0]*(x - x0 + 1) + dy*R[1, 1]*(y - y0 + 1)))/(fs*R[2, 2] + dx*R[2, 0]*(x - x0 + 1) + dy*R[2, 1]*(y - y0 + 1)))))/(zL**2 + (xL + R[0, 0]*xP + R[0, 1]*yP + R[0, 2]*zP - ((R[2, 0]*xP + R[2, 1]*yP + R[2, 2]*zP)*(fs*R[0, 2] + dx*R[0, 0]*(x - x0) + dy*R[0, 1]*(y - y0)))/(fs*R[2, 2] + dx*R[2, 0]*(x - x0) + dy*R[2, 1]*(y - y0)))**2 + (yL + R[1, 0]*xP + R[1, 1]*yP + R[1, 2]*zP - ((R[2, 0]*xP + R[2, 1]*yP + R[2, 2]*zP)*(fs*R[1, 2] + dx*R[1, 0]*(x - x0) + dy*R[1, 1]*(y - y0)))/(fs*R[2, 2] + dx*R[2, 0]*(x - x0) + dy*R[2, 1]*(y - y0)))**2)
 

@@ -102,8 +102,8 @@ def VLP():
     indexes, RSSs = demodulation.cal_rss(img)
     LED = [1.939, 3.638, 0]
     shape = [4032, 3024]
-    K0 = [1.193, 3.3465, 1.2, 10]  # 最优化初始点
-    P = demodulation.solve(demodulation.f4, K0, LED, RSSs, indexes, I, R, shape)['x']
+    K0 = [1, 5, 2, 10]  # 最优化初始点
+    P = demodulation.solve(demodulation.f4, demodulation.gradf4, K0, LED, RSSs, indexes, I, R, shape)['x']
     print(P)
 
 if __name__ == '__main__':
