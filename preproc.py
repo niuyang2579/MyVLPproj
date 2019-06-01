@@ -77,7 +77,7 @@ def observe():
     plt.show()
 
 def LCC():
-    tag = '0529ED40'
+    tag = '0529ED20'
     i = 0
     img = ir.image(tag, i)
     img = filter.high_pass_filter(img)
@@ -87,7 +87,7 @@ def LCC():
     plt.show()
 
 def VLP():
-    tag = '0513L1'
+    tag = '0513P7'
     i = 0
     img = ir.image(tag, i)
     alpha = img[-1]
