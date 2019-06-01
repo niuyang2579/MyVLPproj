@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import image_reader as ir
 import demodulation
 import filter
-from math import sin, cos
+from math import sin, cos, degrees
 
 def find_range():
     img_wide = cv2.imread('single/wide/IMG_1240.JPG', 0)
@@ -87,27 +87,54 @@ def LCC():
     plt.show()
 
 def VLP():
-    tag = '0513P7'
+    tag = '0513P1'
     i = 0
     img = ir.image(tag, i)
     alpha = img[-1]
     gamma = img[-2]
     beta = img[-3]
-    img = img[:len(img)-3]
+    img = img[:(len(img)-3)]
     # 旋转矩阵
     R = np.array([[cos(alpha)*cos(beta), sin(alpha)*cos(beta), -sin(beta)],
                   [cos(alpha)*sin(beta)*sin(gamma)-sin(alpha)*cos(gamma), sin(alpha)*sin(beta)*sin(gamma)+cos(alpha)*cos(gamma), cos(beta)*sin(gamma)],
-                  [cos(alpha)*sin(beta)*sin(gamma)+sin(alpha)*cos(gamma), sin(alpha)*sin(beta)*sin(gamma)-cos(alpha)*cos(gamma), cos(beta)*cos(gamma)]])
+                  [cos(alpha)*sin(beta)*cos(gamma)+sin(alpha)*sin(gamma), sin(alpha)*sin(beta)*cos(gamma)-cos(alpha)*sin(gamma), cos(beta)*cos(gamma)]])
     I = np.array([3e-3, 3306.61902699479, 3295.67852676445, 2018.79741995009, 1469.65792747970])  # fs fx fy x0 y0
     indexes, RSSs = demodulation.cal_rss(img)
-    LED = [1.939, 3.638, 0]
+    LED = [3.638, 1.939, 3.147]
     shape = [4032, 3024]
-    K0 = [1, 5, 2, 10]  # 最优化初始点
-    P = demodulation.solve(demodulation.f4, demodulation.gradf4, K0, LED, RSSs, indexes, I, R, shape)['x']
+    truth = [3.3465, 1.193, 1.2, 10]
+    K0 = [3.3465, 1.193, 1.2, 10] # 最优化初始点
+    # P = demodulation.solve(demodulation.f4, demodulation.gradf4, K0, LED, RSSs, indexes, I, R, shape)['x']
+    P = demodulation.solve(demodulation.f4, demodulation.gradf4, K0, LED, RSSs, indexes, I, R, shape)
     print(P)
+
+def getDegree():
+    tag = 'angle'
+    i = 6
+    img = ir.image(tag, i)
+    alpha = img[-1]
+    gamma = img[-2]
+    beta = img[-3]
+    print(degrees(alpha), degrees(beta), degrees(gamma))
+    i = 7
+    img = ir.image(tag, i)
+    alpha = img[-1]
+    gamma = img[-2]
+    beta = img[-3]
+    print(degrees(alpha), degrees(beta), degrees(gamma))
+
+def prev():
+    tag = '0513P3'
+    i = 5
+    img = ir.image(tag, i)
+    img = img[:(len(img)-3)]
+    plt.plot(img)
+    plt.show()
 
 if __name__ == '__main__':
     # find_range()
     # observe()
     # LCC()
     VLP()
+    # prev()
+    # getDegree()
