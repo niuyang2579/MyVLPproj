@@ -221,7 +221,7 @@ def gradf(K, *args):
 
 def solve(f, gf, K0, *args):
     # bnds = ((0, 11), (0, 7), (0, 3.5), (0, 2 * np.pi), (0, None))
-    bnds = ((0, 11), (0, 7), (0, 3.5), (0, None))
+    bnds = ((-11, 0), (0, 7), (0, 3.5), (0, None))
     return minimize(f, K0, args=args, method='SLSQP', jac=gf, bounds=bnds)
 
 
