@@ -87,46 +87,26 @@ def LCC():
     plt.show()
 
 def VLP():
-    tag = '0513P4'
-    i = 0
+    tag = '0513P11'
+    K0 = [-3.593, 3.9465, 1, 10]
+    # K0 = [-2, 5, 2, 10]
+
+    i = 1
     img = ir.image(tag, i)
     alpha = img[-1]  # yaw
     gamma = img[-2]  # pitch
     beta = img[-3]   # roll
-    # gamma = img[-1]  # yaw
-    # alpha = - img[-2]  # pitch
-    # beta = img[-3]   # roll
-    # img = cv2.imread('./single/0602W.jpg', 0)
-    # img = np.sum(img, 1)
-    # alpha = 0  # yaw
-    # gamma = 0  # pitch
-    # beta = 0   # roll
     img = img[:(len(img)-3)]
     # 旋转矩阵
     R = np.array([[cos(alpha)*cos(beta), sin(alpha)*cos(beta), -sin(beta)],
                   [cos(alpha)*sin(beta)*sin(gamma)-sin(alpha)*cos(gamma), sin(alpha)*sin(beta)*sin(gamma)+cos(alpha)*cos(gamma), cos(beta)*sin(gamma)],
                   [cos(alpha)*sin(beta)*cos(gamma)+sin(alpha)*sin(gamma), sin(alpha)*sin(beta)*cos(gamma)-cos(alpha)*sin(gamma), cos(beta)*cos(gamma)]])
-    T = np.array([[0, 0, 1],
-                 [0, 1, 0],
-                 [-1, 0, 0]])
     I = np.array([3e-3, 3306.61902699479, 3295.67852676445, 2018.79741995009, 1469.65792747970])  # fs fx fy x0 y0
     indexes, RSSs = demodulation.cal_rss(img)
     LED = [-1.939, 3.638, 3.147]
-    # LED = [4.941, 3.638, 3.147]
-    # LED = [-1.076, 5.242, 1.156]
-    # LED = np.dot(T, LED).tolist()
-
     shape = [4032, 3024]
-    truth = [-1.076, 5.829, 1.288, 10]
-    truth = [-0.593, 4.8465, 1.18, 10]
-    truth = [-1.193, 3.9465, 1.2]
-    # K0 = [-0.593, 4.8465, 1.18]  # 最优化初始点
-    # K0 = [-1, 5, 2]
-    # K0 = np.dot(T, K0).tolist()
-    # K0.append(10)
-    K0 = [-1.793, 3.9465, 1, 10]
-
-    P = demodulation.solve(demodulation.f4, demodulation.gradf4, K0, LED, RSSs[::5], indexes[::5], I, R, shape)['x']
+    P = demodulation.solve(demodulation.f4, demodulation.gradf4, K0, LED, RSSs, indexes, I, R, shape)['x'].tolist()
+    print(tag)
     print(P)
 
 def getDegree():
@@ -147,8 +127,8 @@ def getDegree():
 def prev():
     order = 0
     if order == 0:
-        tag = '0513L3'
-        i = 0
+        tag = '0513P8'
+        i = 1
         img = ir.image(tag, i)
         img = img[:(len(img)-3)]
     else:
