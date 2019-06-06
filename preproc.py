@@ -5,6 +5,7 @@ import image_reader as ir
 import demodulation
 import filter
 from math import sin, cos, degrees
+from ExpData import data
 
 def find_range():
     img_wide = cv2.imread('single/wide/IMG_1240.JPG', 0)
@@ -86,12 +87,11 @@ def LCC():
     plt.plot(img)
     plt.show()
 
-def VLP():
-    tag = '0513P11'
-    K0 = [-3.593, 3.9465, 1, 10]
-    # K0 = [-2, 5, 2, 10]
+def VLP(tag, K0, i):
+    # tag = '0513P20'
+    # K0 = [-1.193, 3.3465, 1, 10]
+    # # K0 = [-2, 5, 2, 10]
 
-    i = 1
     img = ir.image(tag, i)
     alpha = img[-1]  # yaw
     gamma = img[-2]  # pitch
@@ -106,8 +106,7 @@ def VLP():
     LED = [-1.939, 3.638, 3.147]
     shape = [4032, 3024]
     P = demodulation.solve(demodulation.f4, demodulation.gradf4, K0, LED, RSSs, indexes, I, R, shape)['x'].tolist()
-    print(tag)
-    print(P)
+    print(tag, i, P)
 
 def getDegree():
     tag = 'angle'
@@ -124,28 +123,26 @@ def getDegree():
     beta = img[-3]
     print(degrees(alpha), degrees(beta), degrees(gamma))
 
-def prev():
-    order = 0
-    if order == 0:
-        tag = '0513P8'
-        i = 1
-        img = ir.image(tag, i)
-        img = img[:(len(img)-3)]
-    else:
-        img = cv2.imread('./single/0602W.jpg', 0)
-    # indexes, RSSs = demodulation.cal_rss(img)
-    plt.plot(img)
-    plt.show()
+def prev(tag, i):
+    img = ir.image(tag, i)
+    img = img[:(len(img)-3)]
+    # img = cv2.imread('./single/0602W.jpg', 0)
+    img = filter.high_pass_filter(img)
+    indexes, RSSs = demodulation.cal_rss(img)
+    print(tag, i, len(indexes))
+    # plt.plot(img)
+    # plt.show()
+
+def main():
+    # for i in range(1, 15):
+    #     tag = '052936V' + str(i)
+    #     # print(tag)
+    #     prev(tag, 1)
+    # for i in range(7, 15):
+    #     tag = '052935V' + str(i)
+    #     VLP(tag, data[tag]['truth'], 1)
+    tag = '052936V10'
+    VLP(tag, data[tag]['truth'], 9)
 
 if __name__ == '__main__':
-    # find_range()
-    # observe()
-    # LCC()
-    order = 1
-    if order == 0:
-        prev()
-    else:
-        VLP()
-    # VLP()
-    # prev()
-    # getDegree()
+    main()

@@ -404,7 +404,7 @@ def gradf4(K, *args):
 
 def find_inflexions(img):
     inflexions = []
-    derivatives = filter.first_derivative(img, 101)
+    derivatives = filter.first_derivative(img, 401)
     for i, d in enumerate(derivatives[1:]):
         if (d < 0) != (derivatives[i] < 0):
             inflexion = [i, img[i]] if abs(d) > abs(derivatives[i]) else [i + 1, img[i + 1]]
