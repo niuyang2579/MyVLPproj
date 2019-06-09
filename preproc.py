@@ -133,16 +133,44 @@ def prev(tag, i):
     # plt.plot(img)
     # plt.show()
 
+def trajectory():
+    LED = [-1.939, 3.638, 3.147]
+    plt.figure(figsize=(10.5 / 2, 6.89 / 2))
+    plt.scatter(LED[0], LED[1], c='red', marker='s', label='LED locations')
+    X = []
+    Y = []
+    X_res = []
+    Y_res = []
+    for i in range(1, 21):
+        tag = '0513P' + str(i)
+        X.append(data[tag]['truth'][0])
+        Y.append(data[tag]['truth'][1])
+        X_res.append(data[tag]['all_rss'][0])
+        Y_res.append(data[tag]['all_rss'][1])
+        if len(X) == 1:
+            continue
+        plt.annotate('', xy=(Y[-1], X[-1]), xytext=(Y[-2], X[-2]), arrowprops=dict(arrowstyle="->", color='C0'))
+    plt.plot(X, Y, label='Marked route')
+    print(X_res)
+    plt.scatter(X_res, Y_res, c='C1', label='Positioning results')
+    plt.xlim(0, -6.89)
+    plt.ylim(0, 10.5)
+    plt.legend(loc='best')
+    plt.gca().invert_xaxis()
+    plt.gca().yaxis.tick_right()
+    plt.show()
+
 def main():
     # for i in range(1, 15):
     #     tag = '052936V' + str(i)
     #     # print(tag)
     #     prev(tag, 1)
-    # for i in range(7, 15):
-    #     tag = '052935V' + str(i)
-    #     VLP(tag, data[tag]['truth'], 1)
-    tag = '052936V10'
-    VLP(tag, data[tag]['truth'], 9)
+    # for i in range(15, 21):
+    #     tag = '0513P' + str(i)
+    #     VLP(tag, data[tag]['truth'], 0)
+    tag = '0513P5'
+    VLP(tag, data[tag]['truth'], 2)
 
 if __name__ == '__main__':
-    main()
+    # main()
+    trajectory()
