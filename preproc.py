@@ -5,7 +5,8 @@ import image_reader as ir
 import demodulation
 import filter
 from math import sin, cos, degrees
-from ExpData import data
+from ExpData import data, trace_data
+import datetime
 
 def find_range():
     img_wide = cv2.imread('single/wide/IMG_1240.JPG', 0)
@@ -106,7 +107,8 @@ def VLP(tag, K0, i):
     LED = [-1.939, 3.638, 3.147]
     shape = [4032, 3024]
     P = demodulation.solve(demodulation.f4, demodulation.gradf4, K0, LED, RSSs, indexes, I, R, shape)['x'].tolist()
-    print(tag, i, P)
+    with open(r'result.log', 'a') as log_file:
+        print(tag, i, P, file = log_file)
 
 def getDegree():
     tag = 'angle'
@@ -139,19 +141,22 @@ def trajectory():
     plt.scatter(LED[0], LED[1], c='red', marker='s', label='LED locations')
     X = []
     Y = []
-    X_res = []
-    Y_res = []
-    for i in range(1, 21):
-        tag = '0513P' + str(i)
-        X.append(data[tag]['truth'][0])
-        Y.append(data[tag]['truth'][1])
-        X_res.append(data[tag]['all_rss'][0])
-        Y_res.append(data[tag]['all_rss'][1])
+    Pret = np.loadtxt('./OptRes/Pret.txt')
+    Lret = np.loadtxt('./OptRes/Lret.txt')
+    ret = np.vstack((Pret, Lret))
+    X_res = ret[:, 0]
+    Y_res = ret[:, 1]
+    print(ret.shape)
+    for i in range(1, 29):
+        index = 'dot_' + str(i)
+        X.append(trace_data[index]['truth'][0])
+        Y.append(trace_data[index]['truth'][1])
         if len(X) == 1:
             continue
-        plt.annotate('', xy=(Y[-1], X[-1]), xytext=(Y[-2], X[-2]), arrowprops=dict(arrowstyle="->", color='C0'))
+        # plt.annotate('', xy=(Y[-1], X[-1]), xytext=(Y[-2], X[-2]), arrowprops=dict(arrowstyle="->", color='C0'))
+        plt.annotate('', xy=(X[-1], Y[-1]), xytext=(X[-2], Y[-2]))
+    # print(X_res)
     plt.plot(X, Y, label='Marked route')
-    print(X_res)
     plt.scatter(X_res, Y_res, c='C1', label='Positioning results')
     plt.xlim(0, -6.89)
     plt.ylim(0, 10.5)
@@ -165,12 +170,82 @@ def main():
     #     tag = '052936V' + str(i)
     #     # print(tag)
     #     prev(tag, 1)
-    # for i in range(15, 21):
-    #     tag = '0513P' + str(i)
-    #     VLP(tag, data[tag]['truth'], 0)
-    tag = '0513P5'
-    VLP(tag, data[tag]['truth'], 2)
+    for j in range(6, 11):
+        for i in range(1, 21):
+            tag = '0513P' + str(i)
+            try:
+                VLP(tag, data[tag]['truth'], j)
+            except IndexError:
+                with open(r'result.log', 'a') as log_file:
+                    print(IndexError, tag, j, file = log_file)
+            except:
+                with open(r'result.log', 'a') as log_file:
+                    print(tag, j, file = log_file)
+    for j in range(0, 11):
+        for i in range(1, 21):
+            tag = '0513L' + str(i)
+            try:
+                VLP(tag, data[tag]['truth'], j)
+            except IndexError:
+                with open(r'result.log', 'a') as log_file:
+                    print(IndexError, tag, j, file = log_file)
+            except:
+                with open(r'result.log', 'a') as log_file:
+                    print(tag, j, file = log_file)
+    for j in range(0, 11):
+        for i in range(0, 9):
+            tag = '0611D' + str(i)
+            try:
+                VLP(tag, data[tag]['truth'], j)
+            except IndexError:
+                with open(r'result.log', 'a') as log_file:
+                    print(IndexError, tag, i, file = log_file)
+            except:
+                with open(r'result.log', 'a') as log_file:
+                    print(tag, i, file = log_file)
+    for j in range(0, 11):
+        for i in range(0, 10):
+            tag = '0611A' + str(5*i)
+            try:
+                VLP(tag, data[tag]['truth'], j)
+            except IndexError:
+                with open(r'result.log', 'a') as log_file:
+                    print(IndexError, tag, i, file = log_file)
+            except:
+                with open(r'result.log', 'a') as log_file:
+                    print(tag, i, file = log_file)
+
+    # tag = '0513P7'
+    # VLP(tag, data[tag]['truth'], 8)
+
+def translation():
+    with open('./OptRes/Lres.txt', 'r') as f:
+        sourceInLine = f.readlines()
+        Lres = []
+        for line in sourceInLine:
+            Lres.append(line.strip('\n').split('[')[1].split(']')[0].split(',')[0:2])
+        for L in Lres:
+            L[0] = float(L[0])
+            L[1] = float(L[1]) + 3.6
+        np.savetxt('./OptRes/Lret.txt', np.array(Lres))
+
+def extract():
+    with open('./OptRes/Dres.txt', 'r') as f:
+        sourceInLine = f.readlines()
+        res = []
+        for line in sourceInLine:
+            res.append(line.strip('\n').split('[')[1].split(']')[0].split(',')[0:2])
+        for r in res:
+            r[0] = float(r[0])
+            r[1] = float(r[1])
+        print(res)
+        np.savetxt('./OptRes/Dret.txt', np.array(res))
 
 if __name__ == '__main__':
+    # starttime = datetime.datetime.now()
     # main()
+    # endtime = datetime.datetime.now()
+    # print((endtime - starttime).microseconds)
     trajectory()
+    # translation()
+    # extract()
