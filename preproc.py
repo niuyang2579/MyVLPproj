@@ -6,6 +6,7 @@ import demodulation
 import filter
 from math import sin, cos, degrees
 from ExpData import data, trace_data
+import ast
 import datetime
 
 def find_range():
@@ -170,42 +171,45 @@ def main():
     #     tag = '052936V' + str(i)
     #     # print(tag)
     #     prev(tag, 1)
-    for j in range(6, 11):
-        for i in range(1, 21):
-            tag = '0513P' + str(i)
-            try:
-                VLP(tag, data[tag]['truth'], j)
-            except IndexError:
-                with open(r'result.log', 'a') as log_file:
-                    print(IndexError, tag, j, file = log_file)
-            except:
-                with open(r'result.log', 'a') as log_file:
-                    print(tag, j, file = log_file)
-    for j in range(0, 11):
-        for i in range(1, 21):
-            tag = '0513L' + str(i)
-            try:
-                VLP(tag, data[tag]['truth'], j)
-            except IndexError:
-                with open(r'result.log', 'a') as log_file:
-                    print(IndexError, tag, j, file = log_file)
-            except:
-                with open(r'result.log', 'a') as log_file:
-                    print(tag, j, file = log_file)
-    for j in range(0, 11):
-        for i in range(0, 9):
-            tag = '0611D' + str(i)
-            try:
-                VLP(tag, data[tag]['truth'], j)
-            except IndexError:
-                with open(r'result.log', 'a') as log_file:
-                    print(IndexError, tag, i, file = log_file)
-            except:
-                with open(r'result.log', 'a') as log_file:
-                    print(tag, i, file = log_file)
+    # for j in range(6, 11):
+    #     for i in range(1, 21):
+    #         tag = '0513P' + str(i)
+    #         try:
+    #             VLP(tag, data[tag]['truth'], j)
+    #         except IndexError:
+    #             with open(r'result.log', 'a') as log_file:
+    #                 print(IndexError, tag, j, file = log_file)
+    #         except:
+    #             with open(r'result.log', 'a') as log_file:
+    #                 print(tag, j, file = log_file)
+
+    # for j in range(0, 11):
+    #     for i in range(1, 21):
+    #         tag = '0513L' + str(i)
+    #         try:
+    #             VLP(tag, data[tag]['truth'], j)
+    #         except IndexError:
+    #             with open(r'result.log', 'a') as log_file:
+    #                 print(IndexError, tag, j, file = log_file)
+    #         except:
+    #             with open(r'result.log', 'a') as log_file:
+    #                 print(tag, j, file = log_file)
+
+    # for j in range(0, 11):
+    #     for i in range(0, 9):
+    #         tag = '0611D' + str(i)
+    #         try:
+    #             VLP(tag, data[tag]['non-truth'], j)
+    #         except IndexError:
+    #             with open(r'result.log', 'a') as log_file:
+    #                 print(IndexError, tag, j, file = log_file)
+    #         except:
+    #             with open(r'result.log', 'a') as log_file:
+    #                 print(tag, j, file = log_file)
+
     for j in range(0, 11):
         for i in range(0, 10):
-            tag = '0611A' + str(5*i)
+            tag = '0616R' + str(5*i)
             try:
                 VLP(tag, data[tag]['truth'], j)
             except IndexError:
@@ -241,11 +245,64 @@ def extract():
         print(res)
         np.savetxt('./OptRes/Dret.txt', np.array(res))
 
+def distance():
+    errors3 = []
+    errors6 = []
+    errors9 = []
+    n_bins = 100
+    led = (-1.939, 3.638, 3.147)
+    with open("OptRes/Dres2.txt") as f:
+        for line in f.readlines():
+            tag, index, coords = line.split(" ", 2)
+            index = int(index)
+            coords = ast.literal_eval(coords)
+            truth = data[tag]['truth']
+            error = np.sqrt((coords[0] - truth[0]) ** 2 + (coords[1] - truth[1]) ** 2)
+            error *= 100
+            if error > 100:
+                continue
+            d = np.sqrt((led[0] - truth[0]) ** 2 + (led[1] - truth[1]) ** 2)
+            if 1 > d:
+                errors3.append(error)
+            elif 2 > d >= 1:
+                errors6.append(error)
+            elif d >= 2:
+                errors9.append(error)
+
+    errors3 = np.array(errors3)
+    errors3 *= 2.5
+    errors6 = np.array(errors6)
+    errors6 *= 2.5
+    errors9 = np.array(errors9)
+    errors9 *= 2.5
+
+    fig, ax = plt.subplots(1, 1, figsize=(5, 3))
+
+    counts, bin_edges = np.histogram(errors3, bins=n_bins)
+    cdf = np.cumsum(counts)
+    ax.plot(bin_edges[1:], cdf / cdf[-1], label='3m', linestyle='-')
+
+    counts, bin_edges = np.histogram(errors6, bins=n_bins)
+    cdf = np.cumsum(counts)
+    ax.plot(bin_edges[1:], cdf / cdf[-1], label='6m', linestyle='--')
+
+    counts, bin_edges = np.histogram(errors9, bins=n_bins)
+    cdf = np.cumsum(counts)
+    ax.plot(bin_edges[1:], cdf / cdf[-1], label='9m', linestyle=':')
+
+    ax.grid(linestyle='--')
+    ax.set_ylabel('CDF')
+    ax.set_xlabel('Error in Euclidean distance (cm)')
+    ax.legend(loc='best')
+    plt.show()
+
 if __name__ == '__main__':
     # starttime = datetime.datetime.now()
-    # main()
-    # endtime = datetime.datetime.now()
-    # print((endtime - starttime).microseconds)
-    trajectory()
+    main()
+    endtime = datetime.datetime.now()
+    with open(r'result.log', 'a') as log_file:
+        print(endtime)
+    # trajectory()
     # translation()
     # extract()
+    # distance()
