@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5eec2e4e-89a6-44e2-85fd-1a29141fa7c7" name="Default" comment="first commit">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ExpData.py" afterPath="$PROJECT_DIR$/ExpData.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/demodulation.py" afterPath="$PROJECT_DIR$/demodulation.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/preproc.py" afterPath="$PROJECT_DIR$/preproc.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/result.log" afterPath="$PROJECT_DIR$/result.log" />
@@ -16,7 +16,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/MyVLPproj$preproc.coverage" NAME="preproc Coverage Results" MODIFIED="1560745483849" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/MyVLPproj$preproc.coverage" NAME="preproc Coverage Results" MODIFIED="1560747960503" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/MyVLPproj$single.coverage" NAME="single Coverage Results" MODIFIED="1557410317891" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
@@ -47,52 +47,10 @@
       <file leaf-file-name="demodulation.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/demodulation.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="530">
-              <caret line="411" column="0" lean-forward="true" selection-start-line="402" selection-start-column="12" selection-end-line="411" selection-end-column="0" />
+            <state relative-caret-position="569">
+              <caret line="403" column="19" lean-forward="false" selection-start-line="403" selection-start-column="19" selection-end-line="403" selection-end-column="19" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="localization.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/localization.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="551">
-              <caret line="1683" column="6" lean-forward="false" selection-start-line="1683" selection-start-column="6" selection-end-line="1683" selection-end-column="64" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ExpData.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ExpData.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="188">
-              <caret line="492" column="9" lean-forward="false" selection-start-line="492" selection-start-column="9" selection-end-line="492" selection-end-column="9" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="result.log" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/result.log">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="188">
-              <caret line="673" column="4" lean-forward="false" selection-start-line="673" selection-start-column="4" selection-end-line="673" selection-end-column="4" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="eva.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/eva.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="833">
-              <caret line="247" column="14" lean-forward="false" selection-start-line="222" selection-start-column="4" selection-end-line="247" selection-end-column="14" />
-              <folding>
-                <element signature="e#0#20#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -101,8 +59,8 @@
       <file leaf-file-name="preproc.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/preproc.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="214" column="36" lean-forward="false" selection-start-line="214" selection-start-column="36" selection-end-line="214" selection-end-column="36" />
+            <state relative-caret-position="-3049">
+              <caret line="110" column="4" lean-forward="false" selection-start-line="110" selection-start-column="4" selection-end-line="111" selection-end-column="41" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
               </folding>
@@ -175,9 +133,9 @@
         <option value="$PROJECT_DIR$/eva.py" />
         <option value="$PROJECT_DIR$/OptRes/Dres2.txt" />
         <option value="$PROJECT_DIR$/ExpData.py" />
-        <option value="$PROJECT_DIR$/result.log" />
         <option value="$PROJECT_DIR$/demodulation.py" />
         <option value="$PROJECT_DIR$/preproc.py" />
+        <option value="$PROJECT_DIR$/result.log" />
       </list>
     </option>
   </component>
@@ -875,7 +833,7 @@
       <workItem from="1560486172595" duration="607000" />
       <workItem from="1560492747976" duration="2693000" />
       <workItem from="1560577214726" duration="4126000" />
-      <workItem from="1560670821557" duration="8616000" />
+      <workItem from="1560670821557" duration="14473000" />
     </task>
     <task id="LOCAL-00001" summary="first commit">
       <created>1560244962471</created>
@@ -888,10 +846,10 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="250007000" />
+    <option name="totallyTimeSpent" value="255864000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-2" y="3" width="1932" height="1056" extended-state="0" />
+    <frame x="-2" y="3" width="1932" height="1056" extended-state="1" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -944,6 +902,10 @@
       <option name="time" value="1" />
     </breakpoint-manager>
     <watches-manager />
+  </component>
+  <component name="antWorkspaceConfiguration">
+    <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
+    <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/preproc.py">
@@ -1301,22 +1263,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/localization.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="551">
-          <caret line="1683" column="6" lean-forward="false" selection-start-line="1683" selection-start-column="6" selection-end-line="1683" selection-end-column="64" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ExpData.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="188">
-          <caret line="492" column="9" lean-forward="false" selection-start-line="492" selection-start-column="9" selection-end-line="492" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/images/room_plan.eps">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1325,20 +1271,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/demodulation.py">
+    <entry file="file://$PROJECT_DIR$/ExpData.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="530">
-          <caret line="411" column="0" lean-forward="true" selection-start-line="402" selection-start-column="12" selection-end-line="411" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/result.log">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="188">
-          <caret line="673" column="4" lean-forward="false" selection-start-line="673" selection-start-column="4" selection-end-line="673" selection-end-column="4" />
+        <state relative-caret-position="108">
+          <caret line="6" column="43" lean-forward="false" selection-start-line="6" selection-start-column="31" selection-end-line="6" selection-end-column="43" />
           <folding />
         </state>
       </provider>
@@ -1348,15 +1284,41 @@
         <state relative-caret-position="833">
           <caret line="247" column="14" lean-forward="false" selection-start-line="222" selection-start-column="4" selection-end-line="247" selection-end-column="14" />
           <folding>
-            <element signature="e#0#20#0" expanded="true" />
+            <element signature="e#0#20#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/localization.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-205">
+          <caret line="1683" column="6" lean-forward="false" selection-start-line="1683" selection-start-column="6" selection-end-line="1683" selection-end-column="64" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/demodulation.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="569">
+          <caret line="403" column="19" lean-forward="false" selection-start-line="403" selection-start-column="19" selection-end-line="403" selection-end-column="19" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/result.log">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="560">
+          <caret line="789" column="36" lean-forward="false" selection-start-line="789" selection-start-column="36" selection-end-line="789" selection-end-column="36" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/preproc.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="214" column="36" lean-forward="false" selection-start-line="214" selection-start-column="36" selection-end-line="214" selection-end-column="36" />
+        <state relative-caret-position="-3049">
+          <caret line="110" column="4" lean-forward="false" selection-start-line="110" selection-start-column="4" selection-end-line="111" selection-end-column="41" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
           </folding>
