@@ -107,9 +107,10 @@ def VLP(tag, K0, i):
     indexes, RSSs = demodulation.cal_rss(img)
     LED = [-1.939, 3.638, 3.147]
     shape = [4032, 3024]
-    P = demodulation.solve(demodulation.f4, demodulation.gradf4, K0, LED, RSSs, indexes, I, R, shape)['x'].tolist()
-    with open(r'result.log', 'a') as log_file:
-        print(tag, i, P, file = log_file)
+    P = demodulation.solve(demodulation.f4, demodulation.gradf4, K0, LED, RSSs[::5], indexes[::5], I, R, shape)['x'].tolist()
+    # with open(r'result.log', 'a') as log_file:
+    #     print(tag, i, P, file = log_file)
+    print(tag, i, P)
 
 def getDegree():
     tag = 'angle'
@@ -209,15 +210,15 @@ def main():
 
     for j in range(0, 11):
         for i in range(0, 10):
-            tag = '0616R' + str(5*i)
-            try:
-                VLP(tag, data[tag]['truth'], j)
-            except IndexError:
-                with open(r'result.log', 'a') as log_file:
-                    print(IndexError, tag, i, file = log_file)
-            except:
-                with open(r'result.log', 'a') as log_file:
-                    print(tag, i, file = log_file)
+            tag = '0611A' + str(5*i)
+            # try:
+            VLP(tag, data[tag]['non-truth'], j)
+            # except IndexError:
+            #     with open(r'result.log', 'a') as log_file:
+            #         print(IndexError, tag, j, file=log_file)
+            # except:
+            #     with open(r'result.log', 'a') as log_file:
+            #         print(tag, j, file=log_file)
 
     # tag = '0513P7'
     # VLP(tag, data[tag]['truth'], 8)
@@ -301,7 +302,7 @@ if __name__ == '__main__':
     main()
     endtime = datetime.datetime.now()
     with open(r'result.log', 'a') as log_file:
-        print(endtime)
+        print(endtime, file=log_file)
     # trajectory()
     # translation()
     # extract()
