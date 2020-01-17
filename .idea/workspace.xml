@@ -2,9 +2,26 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5eec2e4e-89a6-44e2-85fd-1a29141fa7c7" name="Default" comment="first commit">
+      <change afterPath="$PROJECT_DIR$/.idea/other.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/0110/IMG_5696.JPG" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/0110/IMG_5697.JPG" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/0110/IMG_5698.JPG" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/0110/IMG_5699.JPG" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/0110/IMG_5700.JPG" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/0110/IMG_5701.JPG" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/0110/IMG_5702.JPG" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/0110/IMG_5703.JPG" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/0110/IMG_5704.JPG" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/0110/IMG_5705.JPG" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/0110/IMG_5706.JPG" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/0110/IMG_5707.JPG" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExpData.py" beforeDir="false" afterPath="$PROJECT_DIR$/ExpData.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FinalPaperimg/short.eps" beforeDir="false" afterPath="$PROJECT_DIR$/FinalPaperimg/short.eps" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/LOSp.py" beforeDir="false" afterPath="$PROJECT_DIR$/LOSp.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/result.log" beforeDir="false" afterPath="$PROJECT_DIR$/result.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demodulation.py" beforeDir="false" afterPath="$PROJECT_DIR$/demodulation.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/localization.py" beforeDir="false" afterPath="$PROJECT_DIR$/localization.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/preproc.py" beforeDir="false" afterPath="$PROJECT_DIR$/preproc.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -37,68 +54,30 @@
       </list>
     </option>
   </component>
-  <component name="FindInProjectRecents">
-    <findStrings>
-      <find>L</find>
-      <find />
-      <find>route</find>
-      <find>Positioning</find>
-      <find>P</find>
-      <find>R</find>
-      <find>r1-</find>
-      <find>r012</find>
-      <find>^</find>
-      <find>\\\r\n</find>
-      <find>r</find>
-      <find>r20</find>
-      <find>r21</find>
-      <find>r2</find>
-      <find>r22</find>
-      <find>r0</find>
-      <find>r00</find>
-      <find>r01</find>
-      <find>r02</find>
-      <find>r1</find>
-      <find>r10</find>
-      <find>r11</find>
-      <find>r12</find>
-    </findStrings>
-    <replaceStrings>
-      <replace />
-      <replace>**</replace>
-      <replace>R[0, 0]</replace>
-      <replace>R[0, 1]</replace>
-      <replace>R[1, 0]</replace>
-      <replace>R[1, 1]</replace>
-      <replace>R[1, 2]</replace>
-      <replace>R[2, 1]</replace>
-      <replace>R[2, 2]</replace>
-      <replace>R[0, 2]</replace>
-      <replace>R[2, 0]</replace>
-    </replaceStrings>
-  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1QsHYINCTcv3Fm8JjRFGM8q0UUQ" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/data" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/data/0110" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Font" />
+    <property name="settings.editor.selected.configurable" value="PyScientificConfigurable" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/data" />
-      <recent name="E:\workspace\MyVLPproj" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="E:\workspace\MyVLPproj" />
       <recent name="E:\workspace\MyVLPproj\images" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/data/0110" />
+      <recent name="$PROJECT_DIR$/data" />
+      <recent name="E:\workspace\MyVLPproj" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -281,6 +260,50 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="fonttest" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="MyVLPproj" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/fonttest.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="localization" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="MyVLPproj" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/localization.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="preproc" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="MyVLPproj" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -370,6 +393,8 @@
     <recent_temporary>
       <list>
         <item itemvalue="Python.LOSp" />
+        <item itemvalue="Python.localization" />
+        <item itemvalue="Python.fonttest" />
         <item itemvalue="Python.preproc" />
       </list>
     </recent_temporary>
@@ -431,7 +456,30 @@
       <workItem from="1569482792823" duration="391000" />
       <workItem from="1569486130823" duration="709000" />
       <workItem from="1570007386389" duration="129000" />
-      <workItem from="1575619951513" duration="4691000" />
+      <workItem from="1575619951513" duration="4731000" />
+      <workItem from="1575727508917" duration="1882000" />
+      <workItem from="1575783903935" duration="2692000" />
+      <workItem from="1575902300268" duration="408000" />
+      <workItem from="1576157571789" duration="1790000" />
+      <workItem from="1576201578809" duration="1498000" />
+      <workItem from="1576206266950" duration="1770000" />
+      <workItem from="1576420387221" duration="1186000" />
+      <workItem from="1576465020485" duration="35000" />
+      <workItem from="1576564370136" duration="3020000" />
+      <workItem from="1577418005043" duration="729000" />
+      <workItem from="1577627160441" duration="1032000" />
+      <workItem from="1577675771539" duration="638000" />
+      <workItem from="1577708780766" duration="33000" />
+      <workItem from="1578487670145" duration="2325000" />
+      <workItem from="1578538479880" duration="1864000" />
+      <workItem from="1578620421941" duration="7813000" />
+      <workItem from="1578672045973" duration="1380000" />
+      <workItem from="1578726739037" duration="270000" />
+      <workItem from="1578727468743" duration="5973000" />
+      <workItem from="1578800149982" duration="8009000" />
+      <workItem from="1578829424330" duration="4651000" />
+      <workItem from="1578989457018" duration="325000" />
+      <workItem from="1579092740873" duration="139000" />
     </task>
     <task id="LOCAL-00001" summary="first commit">
       <created>1560244962471</created>
@@ -470,12 +518,30 @@
     <MESSAGE value="first commit" />
     <option name="LAST_COMMIT_MESSAGE" value="first commit" />
   </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/LOSp.py</url>
+          <line>5</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/LOSp.py</url>
+          <line>141</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/MyVLPproj$LOSp.coverage" NAME="LOSp Coverage Results" MODIFIED="1575644480860" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/MyVLPproj$preproc.coverage" NAME="preproc Coverage Results" MODIFIED="1575621458034" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/MyVLPproj$fonttest.coverage" NAME="fonttest Coverage Results" MODIFIED="1578648144466" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/MyVLPproj$localization.coverage" NAME="localization Coverage Results" MODIFIED="1578730413111" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/MyVLPproj$LOSp.coverage" NAME="LOSp Coverage Results" MODIFIED="1578989791132" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/MyVLPproj$preproc.coverage" NAME="preproc Coverage Results" MODIFIED="1578646261022" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

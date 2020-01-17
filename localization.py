@@ -233,6 +233,7 @@ def main7():
     img = filter.high_pass_filter(img)
     rss = demodulation.extract_packets(img, T, N, I)
     pos = demodulation.neg2pos(rss)
+    pos = demodulation.neg2pos(rss)
 
     plt.figure(figsize=(6, 3))
     plt.plot(img)
@@ -1792,4 +1793,4 @@ def main11():
 
 
 if __name__ == '__main__':
-    main9()
+    main11()

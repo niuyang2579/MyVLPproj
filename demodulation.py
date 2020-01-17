@@ -4,6 +4,7 @@ from functools import reduce
 import operator
 from math import cos, sin
 from scipy.optimize import minimize
+import matplotlib.pyplot as plt
 
 
 def slope(point1, point2):
@@ -100,6 +101,8 @@ def extract_packets(ratio, T, N, I):
         y = ratio[x[0]:x[-1] + 1]
         ratio[x[0]:x[-1] + 1] = linear_regression(x, y)
         rss[-1][I] = np.mean(ratio[x[0]:x[-1] + 1])
+    plt.plot(ratio)
+    plt.savefig("FinalPaperimg/5-6.pdf", format="pdf", bbox_inches='tight')
     return rss
 
 

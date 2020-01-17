@@ -299,11 +299,13 @@ def distance():
 
 if __name__ == '__main__':
     # starttime = datetime.datetime.now()
-    main()
-    endtime = datetime.datetime.now()
-    with open(r'result.log', 'a') as log_file:
-        print(endtime, file=log_file)
-    # trajectory()
+
+    # main()
+    # endtime = datetime.datetime.now()
+    # with open(r'result.log', 'a') as log_file:
+    #     print(endtime, file=log_file)
+
+    trajectory()
     # translation()
     # extract()
     # distance()
